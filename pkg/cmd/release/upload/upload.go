@@ -75,7 +75,7 @@ func NewCmdUpload(f *cmdutil.Factory, runF func(*UploadOptions) error) *cobra.Co
 		carapace.ActionMultiParts("#", func(c carapace.Context) carapace.Action {
 			switch len(c.Parts) {
 			case 0:
-				return carapace.ActionFiles("")
+				return carapace.ActionFiles()
 			default:
 				return carapace.ActionValues()
 			}

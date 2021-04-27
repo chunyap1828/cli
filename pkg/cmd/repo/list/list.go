@@ -96,7 +96,7 @@ func NewCmdList(f *cmdutil.Factory, runF func(*ListOptions) error) *cobra.Comman
 	})
 
 	carapace.Gen(cmd).PositionalCompletion(
-		action.ActionUsers(cmd, &action.UserOpts{Users: true, Organizations: true}),
+		action.ActionUsers(cmd, action.UserOpts{Users: true, Organizations: true}),
 	)
 
 	return cmd

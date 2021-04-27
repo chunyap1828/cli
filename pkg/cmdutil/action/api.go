@@ -102,10 +102,10 @@ func ActionApiV3Paths(cmd *cobra.Command) carapace.Action {
 				if strings.HasPrefix(c.CallbackValue, ":") {
 					actions = append(actions, carapace.ActionValues(":owner").Invoke(c))
 				} else {
-					actions = append(actions, ActionUsers(cmd, &UserOpts{Users: true, Organizations: true}).Invoke(c))
+					actions = append(actions, ActionUsers(cmd, UserOpts{Users: true, Organizations: true}).Invoke(c))
 				}
 			case "{org}":
-				actions = append(actions, ActionUsers(cmd, &UserOpts{Organizations: true}).Invoke(c))
+				actions = append(actions, ActionUsers(cmd, UserOpts{Organizations: true}).Invoke(c))
 			case "{package_type}":
 				actions = append(actions, ActionPackageTypes().Invoke(c))
 			case "{pull_number}":
@@ -123,7 +123,7 @@ func ActionApiV3Paths(cmd *cobra.Command) carapace.Action {
 			case "{template_owner}": // ignore this as it is already provided by `{owner}`
 			case "{template_repo}": // ignore this as it is already provided by `{repo}`
 			case "{username}":
-				actions = append(actions, ActionUsers(cmd, &UserOpts{Users: true}).Invoke(c))
+				actions = append(actions, ActionUsers(cmd, UserOpts{Users: true}).Invoke(c))
 			case "{workflow_id}":
 				fakeRepoFlag(cmd, matchedData["{owner}"], matchedData["{repo}"])
 				actions = append(actions, ActionWorkflows(cmd, WorkflowOpts{Enabled: true, Disabled: true, Id: true}).Invoke(c))

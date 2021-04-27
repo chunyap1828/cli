@@ -136,7 +136,7 @@ func NewCmdCreate(f *cmdutil.Factory, runF func(*CreateOptions) error) *cobra.Co
 	carapace.Gen(cmd).PositionalCompletion(
 		action.ActionReleases(cmd),
 	)
-	carapace.Gen(cmd).PositionalAnyCompletion(carapace.ActionFiles(""))
+	carapace.Gen(cmd).PositionalAnyCompletion(carapace.ActionFiles())
 
 	return cmd
 }

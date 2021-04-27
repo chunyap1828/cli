@@ -83,7 +83,7 @@ func NewCmdList(f *cmdutil.Factory, runF func(*ListOptions) error) *cobra.Comman
 	cmdutil.AddJSONFlags(cmd, &opts.Exporter, api.PullRequestFields)
 
 	carapace.Gen(cmd).FlagCompletion(carapace.ActionMap{
-		"author":   action.ActionUsers(cmd, &action.UserOpts{Users: true}),
+		"author":   action.ActionUsers(cmd, action.UserOpts{Users: true}),
 		"assignee": action.ActionAssignableUsers(cmd),
 		"base":     action.ActionBranches(cmd),
 		"label": carapace.ActionMultiParts(",", func(c carapace.Context) carapace.Action {

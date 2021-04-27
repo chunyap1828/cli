@@ -222,7 +222,7 @@ func NewCmdApi(f *cmdutil.Factory, runF func(*ApiOptions) error) *cobra.Command 
 	carapace.Gen(cmd).FlagCompletion(carapace.ActionMap{
 		"hostname": action.ActionConfigHosts(),
 		"method":   action.ActionHttpMethods(),
-		"input":    carapace.ActionFiles(""),
+		"input":    carapace.ActionFiles(),
 		"preview": carapace.ActionMultiParts(",", func(c carapace.Context) carapace.Action {
 			return action.ActionApiPreviews().Invoke(c).Filter(c.Parts).ToA()
 		}),

@@ -89,7 +89,7 @@ func (u UserOpts) format() string {
 	return strings.Join(filter, " ")
 }
 
-func ActionUsers(cmd *cobra.Command, opts *UserOpts) carapace.Action {
+func ActionUsers(cmd *cobra.Command, opts UserOpts) carapace.Action {
 	return carapace.ActionCallback(func(c carapace.Context) carapace.Action {
 		if len(c.CallbackValue) < 2 {
 			return carapace.ActionMessage("user search needs at least two characters")

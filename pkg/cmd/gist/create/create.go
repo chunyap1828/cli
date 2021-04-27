@@ -101,7 +101,7 @@ func NewCmdCreate(f *cmdutil.Factory, runF func(*CreateOptions) error) *cobra.Co
 	cmd.Flags().BoolVarP(&opts.Public, "public", "p", false, "List the gist publicly (default: private)")
 	cmd.Flags().StringVarP(&opts.FilenameOverride, "filename", "f", "", "Provide a filename to be used when reading from STDIN")
 
-	carapace.Gen(cmd).PositionalAnyCompletion(carapace.ActionFiles(""))
+	carapace.Gen(cmd).PositionalAnyCompletion(carapace.ActionFiles())
 
 	return cmd
 }
