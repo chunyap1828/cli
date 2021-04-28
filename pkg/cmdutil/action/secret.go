@@ -13,7 +13,7 @@ func ActionSecrets(cmd *cobra.Command, org string) carapace.Action {
 		if cmd.Flag("repo") != nil {
 			repo = cmd.Flag("repo").Value.String()
 		}
-		return carapace.ActionExecCommand("gh", "secret", "--repo", repo, "list", "--org", org)(func(output []byte) carapace.Action {
+		return carapace.ActionExecCommand(ghExecutable(), "secret", "--repo", repo, "list", "--org", org)(func(output []byte) carapace.Action {
 			lines := strings.Split(string(output), "\n")
 			vals := make([]string, 0, len(lines)-1)
 			for _, line := range lines[:len(lines)-1] {

@@ -14,6 +14,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func ghExecutable() string {
+	ghExecutable := "gh"
+	if exe, err := os.Executable(); err == nil {
+		ghExecutable = exe
+	}
+	return ghExecutable
+}
+
 func ActionConfigHosts() carapace.Action {
 	return carapace.ActionCallback(func(c carapace.Context) carapace.Action {
 		if config, err := config.ParseDefaultConfig(); err != nil {
@@ -42,7 +50,7 @@ func ApiV3Action(cmd *cobra.Command, query string, v interface{}, transform func
 		if repo, err := repoOverride(cmd); err != nil {
 			return carapace.ActionMessage(err.Error())
 		} else {
-			return carapace.ActionExecCommand("gh", "api", "--hostname", repo.RepoHost(), query)(func(output []byte) carapace.Action {
+			return carapace.ActionExecCommand(ghExecutable(), "api", "--hostname", repo.RepoHost(), query)(func(output []byte) carapace.Action {
 				if err := json.Unmarshal(output, &v); err != nil {
 					return carapace.ActionMessage("failed to unmarshall response: " + err.Error())
 				}
@@ -69,7 +77,7 @@ func GraphQlAction(cmd *cobra.Command, query string, v interface{}, transform fu
 		if repo, err := repoOverride(cmd); err != nil {
 			return carapace.ActionMessage(err.Error())
 		} else {
-			return carapace.ActionExecCommand("gh", "api", "--hostname", repo.RepoHost(), "--header", "Accept: application/vnd.github.merge-info-preview+json", "graphql", "-F", "owner="+repo.RepoOwner(), "-F", "repo="+repo.RepoName(), "-f", fmt.Sprintf("query=query%v {%v}", queryParams, query))(func(output []byte) carapace.Action {
+			return carapace.ActionExecCommand(ghExecutable(), "api", "--hostname", repo.RepoHost(), "--header", "Accept: application/vnd.github.merge-info-preview+json", "graphql", "-F", "owner="+repo.RepoOwner(), "-F", "repo="+repo.RepoName(), "-f", fmt.Sprintf("query=query%v {%v}", queryParams, query))(func(output []byte) carapace.Action {
 				if err := json.Unmarshal(output, &v); err != nil {
 					return carapace.ActionMessage("failed to unmarshall response: " + err.Error())
 				}
